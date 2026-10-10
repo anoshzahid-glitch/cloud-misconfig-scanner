@@ -1,0 +1,20 @@
+{
+  "account": {"root_mfa_enabled": false, "root_access_keys": 1},
+  "s3_buckets": [
+    {"name": "acme-public-assets", "public_access_block": false, "encryption": true, "versioning": true},
+    {"name": "acme-backups", "public_access_block": true, "encryption": false, "versioning": false}
+  ],
+  "security_groups": [
+    {"id": "sg-open-ssh", "ingress": [{"from_port": 22, "to_port": 22, "cidr": "0.0.0.0/0"}]},
+    {"id": "sg-web", "ingress": [{"from_port": 443, "to_port": 443, "cidr": "0.0.0.0/0"}]}
+  ],
+  "iam_users": [
+    {"name": "dev1", "console_access": true, "mfa_enabled": false, "access_key_age_days": 200}
+  ],
+  "iam_policies": [
+    {"name": "AdminAll", "statements": [{"effect": "Allow", "action": "*", "resource": "*"}]}
+  ],
+  "cloudtrail": {"enabled": false, "multi_region": false},
+  "ebs_volumes": [{"id": "vol-9", "encrypted": false}],
+  "rds_instances": [{"id": "db-prod", "publicly_accessible": true, "encrypted": false}]
+}

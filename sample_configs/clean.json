@@ -1,0 +1,19 @@
+{
+  "account": {"root_mfa_enabled": true, "root_access_keys": 0},
+  "s3_buckets": [
+    {"name": "acme-app-data", "public_access_block": true, "encryption": true, "versioning": true}
+  ],
+  "security_groups": [
+    {"id": "sg-web", "ingress": [{"from_port": 443, "to_port": 443, "cidr": "0.0.0.0/0"}]},
+    {"id": "sg-admin", "ingress": [{"from_port": 22, "to_port": 22, "cidr": "10.0.0.0/16"}]}
+  ],
+  "iam_users": [
+    {"name": "dev1", "console_access": true, "mfa_enabled": true, "access_key_age_days": 30}
+  ],
+  "iam_policies": [
+    {"name": "ReadOnlyApp", "statements": [{"effect": "Allow", "action": ["s3:GetObject"], "resource": "arn:aws:s3:::acme-app-data/*"}]}
+  ],
+  "cloudtrail": {"enabled": true, "multi_region": true},
+  "ebs_volumes": [{"id": "vol-1", "encrypted": true}],
+  "rds_instances": [{"id": "db-1", "publicly_accessible": false, "encrypted": true}]
+}
