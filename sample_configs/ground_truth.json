@@ -1,0 +1,23 @@
+{
+  "clean.json": [],
+  "tricky_negatives.json": [],
+  "vulnerable_1.json": [
+    "IAM-001:root account", "EC2-001:sg-open-ssh", "S3-001:acme-public-assets",
+    "RDS-001:db-prod", "IAM-002:dev1", "IAM-003:AdminAll", "LOG-001:cloudtrail",
+    "S3-002:acme-backups", "IAM-004:dev1", "EC2-002:vol-9", "RDS-002:db-prod",
+    "S3-003:acme-backups"
+  ],
+  "vulnerable_2.json": [
+    "S3-001:startup-site", "S3-002:startup-site", "EC2-001:sg-all-open",
+    "IAM-002:alice", "IAM-004:alice"
+  ],
+  "tricky_positives.yaml": [
+    "IAM-001:root account", "EC2-001:sg-rdp-v6", "IAM-003:PowerPolicy",
+    "LOG-001:cloudtrail", "EC2-002:vol-b", "RDS-002:db-staging"
+  ],
+  "vulnerable_3.json": [
+    "S3-001:b1-uploads", "S3-003:b1-uploads", "S3-002:b2-archive",
+    "EC2-001:sg-a", "EC2-001:sg-b", "IAM-002:u1", "IAM-004:u2",
+    "RDS-001:db-a", "RDS-002:db-b"
+  ]
+}

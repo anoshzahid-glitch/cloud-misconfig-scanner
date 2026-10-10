@@ -1,0 +1,23 @@
+account:
+  root_mfa_enabled: true
+  root_access_keys: 1
+s3_buckets:
+  - {name: team-share, public_access_block: true, encryption: true, versioning: true}
+security_groups:
+  - id: sg-rdp-v6
+    ingress:
+      - {from_port: 3389, to_port: 3389, cidr: "::/0"}
+iam_users:
+  - {name: ops1, console_access: true, mfa_enabled: true, access_key_age_days: 12}
+iam_policies:
+  - name: PowerPolicy
+    statements:
+      - {effect: Allow, action: ["*"], resource: ["*"]}
+cloudtrail:
+  enabled: true
+  multi_region: false
+ebs_volumes:
+  - {id: vol-a, encrypted: true}
+  - {id: vol-b, encrypted: false}
+rds_instances:
+  - {id: db-staging, publicly_accessible: false, encrypted: false}

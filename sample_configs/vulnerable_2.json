@@ -1,0 +1,16 @@
+{
+  "account": {"root_mfa_enabled": true, "root_access_keys": 0},
+  "s3_buckets": [
+    {"name": "startup-site", "public_access_block": false, "encryption": false, "versioning": true}
+  ],
+  "security_groups": [
+    {"id": "sg-all-open", "ingress": [{"from_port": 0, "to_port": 65535, "cidr": "0.0.0.0/0"}]}
+  ],
+  "iam_users": [
+    {"name": "alice", "console_access": true, "mfa_enabled": false, "access_key_age_days": 91}
+  ],
+  "iam_policies": [],
+  "cloudtrail": {"enabled": true, "multi_region": true},
+  "ebs_volumes": [{"id": "vol-a", "encrypted": true}],
+  "rds_instances": []
+}

@@ -1,0 +1,23 @@
+{
+  "account": {"root_mfa_enabled": true, "root_access_keys": 0},
+  "s3_buckets": [
+    {"name": "b1-uploads", "public_access_block": false, "encryption": true, "versioning": false},
+    {"name": "b2-archive", "public_access_block": true, "encryption": false, "versioning": true},
+    {"name": "b3-clean", "public_access_block": true, "encryption": true, "versioning": true}
+  ],
+  "security_groups": [
+    {"id": "sg-a", "ingress": [{"from_port": 22, "to_port": 22, "cidr": "0.0.0.0/0"}, {"from_port": 3389, "to_port": 3389, "cidr": "0.0.0.0/0"}]},
+    {"id": "sg-b", "ingress": [{"from_port": 3389, "to_port": 3389, "cidr": "0.0.0.0/0"}]}
+  ],
+  "iam_users": [
+    {"name": "u1", "console_access": true, "mfa_enabled": false, "access_key_age_days": 10},
+    {"name": "u2", "console_access": true, "mfa_enabled": true, "access_key_age_days": 400}
+  ],
+  "iam_policies": [],
+  "cloudtrail": {"enabled": true, "multi_region": true},
+  "ebs_volumes": [],
+  "rds_instances": [
+    {"id": "db-a", "publicly_accessible": true, "encrypted": true},
+    {"id": "db-b", "publicly_accessible": false, "encrypted": false}
+  ]
+}
