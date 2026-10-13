@@ -18,7 +18,7 @@ class Rule:
     severity: str          # Critical / High / Medium / Low
     category: str          # IAM / Network / Storage / Logging / Database
     description: str
-    cis: str               # CIS AWS Foundations Benchmark reference (verify, see note)
+    cis: str               # CIS AWS Foundations Benchmark v5.0.0 (31 March 2025) recommendation number
     nist: str              # NIST CSF 2.0 subcategory
     waf: str               # AWS Well-Architected Security Pillar area
     check: Callable[[dict], list]
@@ -92,37 +92,37 @@ def chk_s3_version(cfg):
 RULES = [
     Rule("IAM-001", "Root account lacks MFA or has access keys", "Critical", "IAM",
          "The root user has unrestricted access; it needs MFA and no access keys.",
-         "1.4 / 1.5", "PR.AA-03", "Identity and access management", chk_root),
+         "1.3 / 1.4", "PR.AA-03", "Identity and access management", chk_root),
     Rule("EC2-001", "Security group exposes SSH/RDP to the internet", "Critical", "Network",
          "Admin ports open to 0.0.0.0/0 allow brute-force and exploit attempts from anywhere.",
-         "5.2", "PR.IR-01", "Infrastructure protection", chk_sg_open),
+         "5.3", "PR.IR-01", "Infrastructure protection", chk_sg_open),
     Rule("S3-001", "S3 bucket does not block public access", "Critical", "Storage",
          "Without Block Public Access, a bucket policy or ACL mistake can expose data.",
          "2.1.4", "PR.DS-01", "Data protection", chk_s3_public),
     Rule("RDS-001", "RDS instance is publicly accessible", "Critical", "Database",
          "A database reachable from the internet is exposed to direct attack.",
-         "n/a (see AWS FSBP RDS.2)", "PR.IR-01", "Infrastructure protection", chk_rds_public),
+         "2.2.3", "PR.IR-01", "Infrastructure protection", chk_rds_public),
     Rule("IAM-002", "Console user without MFA", "High", "IAM",
          "A stolen password alone gives full console access.",
-         "1.10", "PR.AA-03", "Identity and access management", chk_user_mfa),
+         "1.9", "PR.AA-03", "Identity and access management", chk_user_mfa),
     Rule("IAM-003", "Policy grants full admin (* on *)", "High", "IAM",
          "Violates least privilege; one compromised identity can control the account.",
-         "1.16", "PR.AA-05", "Identity and access management", chk_wildcard_policy),
+         "1.15", "PR.AA-05", "Identity and access management", chk_wildcard_policy),
     Rule("LOG-001", "CloudTrail disabled or not multi-region", "High", "Logging",
          "Without audit logs, attacks and misuse cannot be detected or investigated.",
-         "3.1", "DE.CM-01", "Detection", chk_cloudtrail),
+         "3.1", "PR.PS-04", "Detection", chk_cloudtrail),
     Rule("S3-002", "S3 bucket not encrypted at rest", "High", "Storage",
          "Unencrypted objects raise the impact of any storage-level compromise.",
-         "n/a (see 2.1.x)", "PR.DS-01", "Data protection", chk_s3_encrypt),
+         "n/a", "PR.DS-01", "Data protection", chk_s3_encrypt),
     Rule("IAM-004", "Access key older than 90 days", "Medium", "IAM",
          "Long-lived keys increase the window for misuse if leaked.",
-         "1.14", "PR.AA-01", "Identity and access management", chk_key_age),
+         "1.13", "PR.AA-01", "Identity and access management", chk_key_age),
     Rule("EC2-002", "EBS volume not encrypted", "Medium", "Storage",
          "Unencrypted volumes and snapshots expose data if copied or shared.",
-         "2.2.1", "PR.DS-01", "Data protection", chk_ebs),
+         "5.1.1", "PR.DS-01", "Data protection", chk_ebs),
     Rule("RDS-002", "RDS instance not encrypted", "Medium", "Database",
          "Unencrypted database storage and backups weaken data protection.",
-         "2.3.1", "PR.DS-01", "Data protection", chk_rds_encrypt),
+         "2.2.1", "PR.DS-01", "Data protection", chk_rds_encrypt),
     Rule("S3-003", "S3 versioning disabled", "Low", "Storage",
          "No versioning means deletions or overwrites cannot be recovered.",
          "n/a", "PR.DS-11", "Data protection", chk_s3_version),
